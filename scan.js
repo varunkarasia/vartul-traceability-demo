@@ -6,7 +6,7 @@ const phases=[
  {id:'film',title:'Start with the finished film.',text:'The sample identifier connects this product to FLM–024.',image:'clean-film.webp?v=haze',reveal:['film','dispatch','receipt']},
  {id:'convert',title:'Back to the conversion step.',text:'The conversion record connects film to its granule input.',image:'clean-film.webp?v=haze',reveal:['convert','converter']},
  {id:'granules',title:'Before film, there were granules.',text:'Recovered polymer links this product to the recycling process.',image:'granules.webp',reveal:['granules']},
- {id:'recycle',title:'Follow the process and its outputs.',text:'Recycling connects the recovered material and a separate residue branch.',image:'recycling.webp',reveal:['recycle','processor','residue']},
+ {id:'recycle',title:'Follow the process and its outputs.',text:'Recycling connects the recovered material and a separate residue branch.',image:'recycling.webp?v=iot',reveal:['recycle','processor','residue']},
  {id:'source',title:'Back to sorted film bales.',text:'The source is visible. The missing sorting report remains an evidence gap.',image:'collection-waste.webp?v=bales',reveal:['source','sorting_report']}
 ];
 root.querySelector('.network-intro h2').innerHTML='Scan the product.<br><em>Trace its past.</em>';
@@ -32,5 +32,6 @@ root.addEventListener('click',e=>{if(e.target.closest('#network-reset'))finish()
 motion.addEventListener('change',e=>{if(e.matches&&(mode==='scanning'||mode==='tracing'))finish();});
 visibility();state();
 })();
+
 
 

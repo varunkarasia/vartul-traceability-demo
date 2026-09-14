@@ -2,7 +2,7 @@
 (()=>{
 const nodes=[
  {id:'source',x:110,y:255,kind:'material',size:112,label:'Sorted film bales',sub:'SOURCE MATERIAL',image:'collection-waste.webp?v=bales',record:'sorting',title:'Where the story starts.',body:'Used flexible packaging is assigned to batch FLM–024 at a sample sorting facility. The receiving note connects the handoff. The sorting assessment is still missing.',status:'Sorting report needed',pending:true},
- {id:'recycle',x:350,y:200,kind:'process',size:82,label:'Recycling',sub:'MECHANICAL PROCESS',image:'recycling.webp',record:'recycling',title:'One input. Two paths.',body:'The sample mechanical process connects sorted packaging to recovered polymer. Unsuitable material leaves through a separate residue route.',status:'Sample process record present'},
+ {id:'recycle',x:350,y:200,kind:'process',size:82,label:'Recycling',sub:'MECHANICAL PROCESS',image:'recycling.webp?v=iot',record:'recycling',title:'One input. Two paths.',body:'The sample mechanical process connects sorted packaging to recovered polymer. Unsuitable material leaves through a separate residue route.',status:'Sample process record present'},
  {id:'granules',x:530,y:290,kind:'material',size:96,label:'Granules',sub:'RECOVERED POLYMER',image:'granules.webp',record:'recovered',title:'Material with a next life.',body:'Recovered polymer becomes granules. Their link to the processing record preserves the origin of the material before conversion.',status:'Sample output record present'},
  {id:'convert',x:680,y:415,kind:'event',size:26,label:'Film conversion',sub:'TRANSFORMATION',record:'destination',title:'The shape changes.',body:'Suitable recovered granules are converted into industrial film. The conversion record connects the input material to the finished product.',status:'Sample conversion record present'},
  {id:'film',x:835,y:250,kind:'product',size:174,label:'Recycled film',sub:'PRODUCT / FLM–024',image:'clean-film.webp?v=haze',record:'destination',title:'A product. With its past attached.',body:'Clean industrial film is the outcome of this illustrative route. Follow its connections to see the material, process and records behind it.',status:'Receiving confirmation pending',pending:true},
@@ -50,6 +50,7 @@ const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isInte
 select('film',true);
 window.productNetwork={nodes,select,root};
 })();
+
 
 
 
