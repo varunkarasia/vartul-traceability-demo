@@ -1,0 +1,36 @@
+/* A simulated sample scan: no camera, decoding, or live product lookup. */
+(()=>{
+const {root,nodes,select}=window.productNetwork;
+const motion=matchMedia('(prefers-reduced-motion: reduce)');
+const phases=[
+ {id:'film',title:'Start with the finished film.',text:'The sample identifier connects this product to FLM–024.',image:'clean-film.webp?v=haze',reveal:['film','dispatch','receipt']},
+ {id:'convert',title:'Back to the conversion step.',text:'The conversion record connects film to its granule input.',image:'clean-film.webp?v=haze',reveal:['convert','converter']},
+ {id:'granules',title:'Before film, there were granules.',text:'Recovered polymer links this product to the recycling process.',image:'granules.webp',reveal:['granules']},
+ {id:'recycle',title:'Follow the process and its outputs.',text:'Recycling connects the recovered material and a separate residue branch.',image:'recycling.webp',reveal:['recycle','processor','residue']},
+ {id:'source',title:'Back to sorted film bales.',text:'The source is visible. The missing sorting report remains an evidence gap.',image:'collection-waste.webp?v=bales',reveal:['source','sorting_report']}
+];
+root.querySelector('.network-intro h2').innerHTML='Scan the product.<br><em>Trace its past.</em>';
+root.querySelector('.network-intro>p').innerHTML='One sample product.<br>A journey back to its origin.';
+const scan=document.createElement('div');scan.className='sample-scanner';
+scan.innerHTML=`<div class="scan-visual"><img src="clean-film.webp?v=haze" alt="Sample recycled industrial film"/><span class="scan-corner tl"></span><span class="scan-corner tr"></span><span class="scan-corner bl"></span><span class="scan-corner br"></span><span class="scan-sweep" aria-hidden="true"></span><span class="scan-tag">SAMPLE / FLM–024</span></div><div class="scan-copy"><p class="scan-kicker">PRODUCT → ORIGIN</p><div class="scan-announcement" role="status" aria-live="polite" aria-atomic="true"><h3>Every product has a before.</h3><p>Scan this sample film to trace the material, processes and records behind it.</p></div><div class="scan-actions"><button id="scan-start" class="cta">Scan sample product <span>⌁</span></button><button id="scan-skip" class="text-button">Show full journey <span>↗</span></button></div><p class="scan-disclosure">Simulated scan · No camera or live lookup</p></div>`;
+root.querySelector('.network-bar').before(scan);
+const trail=document.createElement('ol');trail.className='scan-steps';trail.setAttribute('aria-label','Reverse trace order');trail.innerHTML=['Film','Conversion','Granules','Recycling','Sorted bales'].map((s,i)=>`<li data-scan-step="${i}"><span>0${i+1}</span>${s}${i<4?'<b aria-hidden="true">→</b>':''}</li>`).join('');scan.after(trail);
+const announcement=scan.querySelector('.scan-announcement'),start=scan.querySelector('#scan-start'),skip=scan.querySelector('#scan-skip'),picture=scan.querySelector('img');
+let mode='ready',phase=-1,elapsed=0,last=0,frame=0;const revealed=new Set(['film']);const visited=[];
+const pauseButton=document.createElement('button');pauseButton.id='scan-pause';pauseButton.className='text-button';scan.querySelector('.scan-actions').append(pauseButton);pauseButton.onclick=()=>root.querySelector('#network-motion').click();
+const syncPause=()=>{const p=document.documentElement.classList.contains('motion-paused');pauseButton.textContent=p?'Resume':'Pause';pauseButton.setAttribute('aria-pressed',String(p));scan.classList.toggle('scan-paused',p);};new MutationObserver(syncPause).observe(document.documentElement,{attributes:true,attributeFilter:['class']});syncPause();
+function visibility(){root.querySelectorAll('[data-node]').forEach(b=>{const hidden=!revealed.has(b.dataset.node);b.classList.toggle('scan-hidden',hidden);b.disabled=hidden;});root.querySelectorAll('[data-edge]').forEach(e=>e.classList.toggle('scan-hidden',!e.dataset.edge.split(':').every(id=>revealed.has(id))));}
+function state(){root.dataset.scanState=mode;root.dataset.scanPhase=String(phase);scan.classList.toggle('is-scanning',mode==='scanning');root.classList.toggle('scan-tracing',mode==='tracing');root.classList.toggle('scan-not-complete',mode!=='complete');trail.querySelectorAll('li').forEach((li,i)=>{li.classList.toggle('step-current',i===phase);li.classList.toggle('step-done',mode==='complete'||i<phase);if(i===phase)li.setAttribute('aria-current','step');else li.removeAttribute('aria-current');});start.textContent=mode==='ready'?'Scan sample product':mode==='complete'?'Replay sample scan':'Restart scan';skip.textContent=mode==='complete'?'Full journey shown':'Skip to full journey';skip.disabled=mode==='complete';}
+function announce(title,text){announcement.innerHTML=`<h3>${title}</h3><p>${text}</p>`;}
+function revealPhase(i){visited.push(phases[i].id);root.dataset.traceOrder=visited.join(' → ');phase=i;mode='tracing';const p=phases[i];p.reveal.forEach(id=>revealed.add(id));select(p.id,true);visibility();picture.src=p.image;picture.alt=p.id==='source'?'Uniform sorted flexible film bales':p.title;picture.classList.remove('scan-image-enter');void picture.offsetWidth;picture.classList.add('scan-image-enter');announce(p.title,p.text);scan.querySelector('.scan-kicker').textContent='TRACING BACK TO ORIGIN';state();}
+function finish(){cancelAnimationFrame(frame);mode='complete';phase=4;nodes.forEach(n=>revealed.add(n.id));visibility();select('film',true);announce('The full journey, connected.','Explore any connection below. A scan reveals the sample trail; it does not verify the records.');scan.querySelector('.scan-kicker').textContent='SAMPLE TRACE COMPLETE';picture.src='collection-waste.webp?v=bales';picture.alt='Sorted flexible film bales at the origin of the sample journey';state();}
+function tick(now){const dt=last?Math.min(now-last,100):0;last=now;if(!document.documentElement.classList.contains('motion-paused')&&!document.hidden)elapsed+=dt;
+ if(elapsed>=9600){finish();return;}const next=Math.floor((elapsed-1000)/1720);if(next>=0&&next!==phase)revealPhase(Math.min(next,4));frame=requestAnimationFrame(tick);}
+function begin(){root.classList.add('scan-open');cancelAnimationFrame(frame);visited.length=0;root.dataset.traceOrder='';revealed.clear();revealed.add('film');phase=-1;elapsed=0;last=0;mode='scanning';select('film',true);visibility();picture.src='clean-film.webp?v=haze';picture.alt='Sample recycled film inside a scan frame';scan.querySelector('.scan-kicker').textContent='READING SAMPLE / FLM–024';announce('Reading the sample identifier…','This demonstration opens the same FLM–024 journey. No camera is used.');state();root.scrollIntoView({block:'start',behavior:motion.matches||document.documentElement.classList.contains('motion-paused')?'instant':'smooth'});if(motion.matches){finish();return;}frame=requestAnimationFrame(tick);}
+start.addEventListener('click',begin);skip.addEventListener('click',finish);
+root.addEventListener('click',e=>{if(e.target.closest('#network-reset'))finish();else if(mode!=='complete'&&e.target.closest('[data-node],[data-select],[data-record],.network-linear summary'))finish();},true);
+motion.addEventListener('change',e=>{if(e.matches&&(mode==='scanning'||mode==='tracing'))finish();});
+visibility();state();
+})();
+
+
