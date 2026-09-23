@@ -24,3 +24,9 @@ The `fenestration/` page follows an illustrative aluminium-framed, single-glazed
 Five generated photographic illustrations show incoming materials, guarded profile cutting, glass processing, assembly identification and a finished window. They are not production evidence.
 
 Manufacturing context was checked against [Reynaers fabrication process descriptions](https://www.reynaers.com/resource/41815/download) and [Pilkington glass processing information](https://www.pilkington.com/en-us/united-states-and-canada/knowledge-hub-selection/architectural-and-technical-glass-knowledge-hub/learn-about-glass-technology/glass-processing). The fictional lots and records do not represent those companies or their products.
+
+## Precision engineering companion
+
+The `precision-engineering/` page follows a generic aluminium mounting plate from stock lot AL-207 through CNC/work order WO-024, deburring and cleaning, inspection, part identification and dispatch. The reverse product scan reveals each manufacturing step. Sample event, inspection-document and identifier captures open the relevant linked records. Supporting material documentation, inspection sign-off and receiving confirmation remain visibly incomplete.
+
+Five generated photographic illustrations show stock, a guarded CNC setup with retracted tooling, a finishing bench, an inspection probe and the finished mounting plate. These are illustrative scenes, not actual production evidence. No live integrations, measured tolerances, calibration assurance, certifications or release approval are represented. Existing waste and fenestration routes remain available from the industry navigation.
