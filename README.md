@@ -30,3 +30,9 @@ Manufacturing context was checked against [Reynaers fabrication process descript
 The `precision-engineering/` page follows a generic aluminium mounting plate from stock lot AL-207 through CNC/work order WO-024, deburring and cleaning, inspection, part identification and dispatch. The reverse product scan reveals each manufacturing step. Sample event, inspection-document and identifier captures open the relevant linked records. Supporting material documentation, inspection sign-off and receiving confirmation remain visibly incomplete.
 
 Five generated photographic illustrations show stock, a guarded CNC setup with retracted tooling, a finishing bench, an inspection probe and the finished mounting plate. These are illustrative scenes, not actual production evidence. No live integrations, measured tolerances, calibration assurance, certifications or release approval are represented. Existing waste and fenestration routes remain available from the industry navigation.
+
+## Parali collector companion
+
+The `parali/` page follows illustrative paddy straw from field collection through bale identity, aggregation, transport, plant weighbridge and intake-quality records to feedstock acceptance. The reverse delivery scan exposes seven linked records, including missing source documentation and a pending carrier acknowledgement.
+
+Five generated photographic illustrations show collection, bale-tag scanning, covered storage, a truck weighbridge and a moisture-probe intake check. All identifiers and records are fictional. No measured weights, moisture results, acceptance thresholds, gas yields, carbon claims or live device integrations are represented. The journey ends at plant feedstock receipt; pretreatment and digestion are outside its scope.
